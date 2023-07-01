@@ -3,16 +3,15 @@ import './App.css';
 import Popup from './components/Popup';
 
 const App = () => {
+
+  //A toggle variable to enable and disable the popup
   const [showPopup, setShowPopup] = useState(false);
 
-
+  //This fucntion helps to manage the togglePopup enable and disable
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
 
-  const handleSaveSegment = (name) => {
-    setShowPopup(false);
-  };
 
   return (
     <div className="container">
@@ -23,7 +22,7 @@ const App = () => {
         </button>
       </div>
       {showPopup && (
-        <Popup handleClose={togglePopup} handleSave={handleSaveSegment} />
+        <Popup handleClose={togglePopup} />
       )}
     </div>
   );

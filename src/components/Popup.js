@@ -6,7 +6,9 @@ const Popup = ({ handleClose }) => {
     const [segmentName, setSegmentName] = useState('');
     const [selectedSchema, setSelectedSchema] = useState('');
     const [customSchemas, setCustomSchemas] = useState([]);
-    const [availableSchemas, setAvailableSchemas] = useState([
+
+    // we are using useState local storage fucntion to hold all options in a dropdown as the array of objects 
+    const [availableSchemas] = useState([
         { label: 'First Name', value: 'first_name' },
         { label: 'Last Name', value: 'last_name' },
         { label: 'Gender', value: 'gender' },
@@ -16,16 +18,19 @@ const Popup = ({ handleClose }) => {
         { label: 'State', value: 'state' },
     ]);
 
+    //This function handles the chnage of segment Name
     const handleChangeSegmentName = (event) => {
         setSegmentName(event.target.value);
     };
 
+    // This fucntion helps to reset the option in dropdown of the selected schemas in the segment
     const handleChangeSchema = (event, index) => {
         const updatedSchemas = [...customSchemas];
         updatedSchemas[index] = event.target.value;
         setCustomSchemas(updatedSchemas);
     };
 
+    //This fucntion helps to add the schemas to the segment
     const handleAddCustomSchema = () => {
         if (selectedSchema !== '') {
             const selectedOption = availableSchemas.find((schema) => schema.value === selectedSchema);
@@ -36,7 +41,8 @@ const Popup = ({ handleClose }) => {
         }
     };
 
-
+    //This function helps to send the data to the server users https://webhook.site/ website 
+    // IMP-NOTE:  Enable the CORS Headers in the website to allow to send the data 
     const handleSave = async () => {
         const segmentData = {
             segment_name: segmentName,
