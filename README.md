@@ -1,10 +1,22 @@
-# Getting Started with Create React App
+# Segment Application
 
-commands to create the react-application
+- The application is a React-based user interface that allows users to create segments by selecting and adding schemas.
 
-npx create-react-app segment-app
+- It features a popup window that appears when the "Save Segment" button is clicked.
+- The popup contains a form with fields for entering the segment name and selecting schemas from a dropdown menu.
+- Users can dynamically add new schemas to the segment.
+- The segment data, including the segment name and selected schemas, is sent to a server using a webhook URL for further processing.
+- The application provides an aesthetically pleasing and user-friendly interface for creating and saving segments.
 
-## Available Scripts
+## Please check out the live link for the project
+
+[Project Link ](https://segment-app.vercel.app/)
+
+### commands to create the react-application
+
+`npx create-react-app segment-app`
+
+### Available Scripts
 
 In the project directory, you can run:
 
