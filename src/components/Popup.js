@@ -7,13 +7,13 @@ const Popup = ({ handleClose }) => {
     const [selectedSchema, setSelectedSchema] = useState('');
     const [customSchemas, setCustomSchemas] = useState([]);
     const [availableSchemas, setAvailableSchemas] = useState([
-        'first_name',
-        'last_name',
-        'gender',
-        'age',
-        'account_name',
-        'city',
-        'state',
+        { label: 'First Name', value: 'first_name' },
+        { label: 'Last Name', value: 'last_name' },
+        { label: 'Gender', value: 'gender' },
+        { label: 'Age', value: 'age' },
+        { label: 'Account Name', value: 'account_name' },
+        { label: 'City', value: 'city' },
+        { label: 'State', value: 'state' },
     ]);
 
     const handleChangeSegmentName = (event) => {
@@ -28,15 +28,19 @@ const Popup = ({ handleClose }) => {
 
     const handleAddCustomSchema = () => {
         if (selectedSchema !== '') {
-            setCustomSchemas([...customSchemas, selectedSchema]);
-            setSelectedSchema('');
+            const selectedOption = availableSchemas.find((schema) => schema.value === selectedSchema);
+            if (selectedOption) {
+                setCustomSchemas([...customSchemas, selectedOption]);
+                setSelectedSchema('');
+            }
         }
     };
+
 
     const handleSave = async () => {
         const segmentData = {
             segment_name: segmentName,
-            schema: [...customSchemas.map((schema) => ({ [schema]: schema.charAt(0).toUpperCase() + schema.slice(1) }))],
+            schema: customSchemas.map((schema) => ({ [schema.value]: schema.label })),
         };
 
         try {
@@ -58,11 +62,11 @@ const Popup = ({ handleClose }) => {
                     <p className="description">To save your Segment, you need to add the schemas to build the query</p>
                     <div className="schema-container">
                         {customSchemas.map((schema, index) => (
-                            <select key={index} value={schema} onChange={(e) => handleChangeSchema(e, index)}>
+                            <select key={index} value={schema.value} onChange={(e) => handleChangeSchema(e, index)}>
                                 <option value="">Select a schema</option>
                                 {availableSchemas.map((option) => (
-                                    <option key={option} value={option} disabled={customSchemas.includes(option)}>
-                                        Label: {option.charAt(0).toUpperCase() + option.slice(1)} Value: {option}
+                                    <option key={option.value} value={option.value} disabled={customSchemas.some((s) => s.value === option.value)}>
+                                        {option.label}
                                     </option>
                                 ))}
                             </select>
@@ -71,8 +75,8 @@ const Popup = ({ handleClose }) => {
                     <select value={selectedSchema} onChange={(e) => setSelectedSchema(e.target.value)}>
                         <option value="">Add schema to segment</option>
                         {availableSchemas.map((schema) => (
-                            <option key={schema} value={schema}>
-                                Label: {schema.charAt(0).toUpperCase() + schema.slice(1)} Value: {schema}
+                            <option key={schema.value} value={schema.value}>
+                                {schema.label}
                             </option>
                         ))}
                     </select>
