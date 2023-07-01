@@ -17,7 +17,7 @@ const App = () => {
   return (
     <div className="container">
       <div className="app-content">
-        <h1>Save Segment</h1>
+        <h2>View Segment</h2>
         <button className="save-btn" onClick={togglePopup}>
           Save segment
         </button>

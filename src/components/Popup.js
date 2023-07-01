@@ -51,9 +51,11 @@ const Popup = ({ handleClose }) => {
     return (
         <div className="popup">
             <div className="popup-content">
-                <h2>Popup Title</h2>
+                <h2>Saving Segment</h2>
                 <form>
+                    <p>Enter the Name of the Segment</p>
                     <input type="text" placeholder="Enter segment name" value={segmentName} onChange={handleChangeSegmentName} />
+                    <p className="description">To save your Segment, you need to add the schemas to build the query</p>
                     <div className="schema-container">
                         {customSchemas.map((schema, index) => (
                             <select key={index} value={schema} onChange={(e) => handleChangeSchema(e, index)}>
@@ -74,7 +76,7 @@ const Popup = ({ handleClose }) => {
                             </option>
                         ))}
                     </select>
-                    <button type="button" onClick={handleAddCustomSchema}>
+                    <button className="add-btn" type="button" onClick={handleAddCustomSchema}>
                         + Add new schema
                     </button>
 
